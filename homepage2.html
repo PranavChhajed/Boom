@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krishi Sakhi Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8f8f0;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: #2d4b2d;
+      color: white;
+      padding: 20px;
+      height: 100vh;
+      text-align: center;
+    }
+    .sidebar img {
+      width: 140px; /* Increased logo size */
+      margin-bottom: 20px;
+    }
+    .sidebar h2 {
+      font-size: 24px; /* Bigger title */
+      margin-bottom: 35px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      font-size: 18px; /* Larger sidebar items */
+    }
+    .sidebar ul li {
+      margin: 18px 0;
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 25px;
+      font-size: 18px; /* Base font size bigger */
+    }
+
+    /* Top row for weather + graph */
+    .top-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-bottom: 35px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 25px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      flex: 1;
+      min-width: 300px;
+    }
+
+    /* Weather Card */
+    .weather-card {
+      background: linear-gradient(to bottom right, #4facfe, #00f2fe);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .weather-card .icon {
+      font-size: 70px;
+      margin-bottom: 12px;
+    }
+    .weather-card h1 {
+      font-size: 48px; /* Bigger temperature */
+      margin: 8px 0;
+    }
+    .weather-card p {
+      margin: 6px 0;
+      font-size: 20px; /* Larger condition text */
+    }
+    .weather-details {
+      margin-top: 18px;
+      font-size: 16px;
+      text-align: left;
+      width: 100%;
+    }
+
+    /* Buttons */
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .btn {
+      background: white;
+      padding: 28px;
+      text-align: center;
+      border-radius: 14px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      font-weight: bold;
+      font-size: 18px; /* Larger button text */
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #e5f5e5;
+    }
+
+    /* Graph Title */
+    h3 {
+      font-size: 22px; /* Bigger graph heading */
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <img src="logo.png" alt="Krishi Sakhi Logo"> <!-- Replace with actual logo path -->
+    <h2>Krishi Sakhi</h2>
+    <ul>
+      <li>Home</li>
+      <li>Chatbot</li>
+      <li>Settings</li>
+      <li>Profile</li>
+      <li>About Us</li>
+    </ul>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <!-- Weather + Graph -->
+    <div class="top-section">
+      <!-- Weather Card -->
+      <div class="card weather-card">
+        <div class="icon">☀️</div>
+        <h1>28°C</h1>
+        <p>Sunny</p>
+        <div class="weather-details">
+          <p>Humidity: 65%</p>
+          <p>Wind: 12 km/h</p>
+          <p>Pressure: 1012 mb</p>
+          <p>Sunrise: 6:12 AM</p>
+          <p>Sunset: 6:45 PM</p>
+        </div>
+      </div>
+
+      <!-- Market Price Graph -->
+      <div class="card">
+        <h3>Market Prices (₹/Kg)</h3>
+        <canvas id="marketChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <div class="btn">Market</div>
+      <div class="btn">Land Profile</div>
+      <div class="btn">Weather</div>
+      <div class="btn">Reminder</div>
+      <div class="btn">Crop Details</div>
+      <div class="btn">Chatbot</div>
+      <div class="btn">Activity Tracker</div>
+    </div>
+  </div>
+
+  <!-- Chart.js Script -->
+  <script>
+    const ctx = document.getElementById('marketChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Kochi', 'Trivandrum', 'Kozhikode', 'Thrissur', 'Palakkad'],
+        datasets: [{
+          label: 'Crop Price (₹/Kg)',
+          data: [23, 25, 25, 22, 27], // Example values
+          backgroundColor: ['#4caf50', '#ffb300', '#ff5722', '#673ab7', '#2196f3']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 5, font: { size: 14 } }
+          },
+          x: {
+            ticks: { font: { size: 14 } }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
